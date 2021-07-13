@@ -7,6 +7,7 @@ Add a small build.xml to your project and run it to (re)start your Frank.
 
 # Contents
 
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Examples](#examples)
 - [Specials](#specials)
@@ -21,8 +22,34 @@ Add a small build.xml to your project and run it to (re)start your Frank.
 - [Command line](#command-line)
 - [Scripting](#scripting)
 
+# Prerequisites
+Make sure you have installed all of the following prerequisites on your machine:
+- Git - [Download & Install Git](https://git-scm.com/downloads). Mac and Linux machines typically have this already installed. You can check this by running `git --version` in your console.
+- cURL - Windows and Mac machines typically have this already installed. You can check if you have this already installed by running `curl --version` in your console.
+
+## Windows
+Install git by downloading the installer on https://git-scm.com/downloads
+
+## Linux
+To install git and cURL, run the following commands:
+1. `sudo apt-get update`
+2. `sudo apt-get install git`
+3. `sudo apt-get install curl`
+
+## Mac
+The easiest way to install the prerequisites on Mac is by using [Homebrew](https://brew.sh).
+Install Homebrew by running the following command in your terminal:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+When homebrew is installed, you can install git and cURL by running
+`brew install git` and/or `brew install curl`
 
 # Installation
+
+## Rest of the installation
 
 Clone or download this Frank!Runner project into the projects folder that
 contains your Frank project(s) (make the frank-runner folder a sibling of your
@@ -37,7 +64,7 @@ http://localhost
 In case your project doesn't contain a build.xml yet you can add it to the root
 folder of your project with the following content:
 
-```
+```xml
 <project default="restart">
 	<target name="restart">
 		<basename property="project.dir" file="${basedir}"/>
@@ -62,7 +89,7 @@ project element the same).
 You can also create a restart.bat with the following content which you can also
 run from Windows Explorer:
 
-```
+```bash
 call ..\frank-runner\ant.bat
 if %errorlevel% equ 0 goto end
 rem https://superuser.com/questions/527898/how-to-pause-only-if-executing-in-a-new-window
@@ -73,7 +100,7 @@ if [%arg0:~2,1%]==[:] if not [%TERM_PROGRAM%] == [vscode] pause
 
 And create a restart.sh with the following content to run on Linux or Mac:
 
-```
+```bash
 #!/bin/bash
 ../../ant.sh
 ```
@@ -140,7 +167,7 @@ folder of the frank-runner folder.
 In case Frank2YourApplication contains a pom.xml it is assumed to be a Maven
 project and the following default values are used:
 
-```
+```properties
 classes.dir=src/main/resources
 configurations.dir=src/main/configurations
 tests.dir=src/test/testtool
@@ -149,7 +176,7 @@ context.xml=src/main/webapp/META-INF/context.xml
 
 Otherwise:
 
-```
+```properties
 classes.dir=classes
 configurations.dir=configurations
 tests.dir=tests
@@ -233,7 +260,7 @@ should be added to the main project) (you can rename target restart to
 restart-&lt;projectname&gt; to have better overview on the Last Tasks list of
 the Task Explorer):
 
-```
+```xml
 <project default="restart">
 	<target name="restart">
 		<basename property="project.dir" file="${basedir}"/>
@@ -266,7 +293,7 @@ frank-runner.properties in the root folder of your project to make the
 Frank!Runner display the most important properties just above the Frank!Runner
 ASCII art:
 
-```
+```properties
 debug=true
 ```
 
@@ -287,19 +314,19 @@ version and/or like to disable the update mechanism add the following to either
 a build.properties in the frank-runner folder or a frank-runner.properties in
 the root folder of your project:
 
-```
+```properties
 update.strategy=none
 ```
 
 Or specify a specific Frank!Framework version like:
 
-```
+```properties
 ff.version=7.4
 ```
 
 Or:
 
-```
+```properties
 ff.version=7.6-20200306.163142
 ```
 
@@ -321,7 +348,7 @@ project.
 You could for example specify a different JDK, Ant or Tomcat version. E.g. for
 Tomcat use:
 
-```
+```properties
 tomcat.version=7.0.100
 ```
 
@@ -335,7 +362,7 @@ http://localhost:81/test
 
 Use:
 
-```
+```properties
 tomcat.connector.port=81
 context.path=test
 ```
@@ -345,7 +372,7 @@ Frank!Runner instance) you probably also want to change the tomcat.server.port
 which defaults to 8005 to prevent a conflict between the two Tomcat instances.
 E.g. use:
 
-```
+```properties
 tomcat.server.port=8105
 ```
 
@@ -359,19 +386,19 @@ Frank!Framework you can add a java folder to the project with your custom .java
 
 For a Maven project the default value for the java folder is:
 
-```
+```properties
 java.dir=src/main/java
 ```
 Otherwise:
 
-```
+```properties
 java.dir=java
 ```
 
 For custom jar files create the following folders:
 
 
-```
+```properties
 lib.server.dir=lib/server
 lib.webapp.dir=lib/webapp
 ```
@@ -442,7 +469,7 @@ would like to use Ansicon.
 Install plugin Ant Target Runner and configure it to use ant.bat or any other
 ant installation by adding the following to settings.json:
 
-```
+```json
 "ant.executable": "C:\\path\\to\\frank-runner\\ant.bat",
 ```
 
@@ -465,7 +492,7 @@ projects\your-project> .\restart.bat
 In the root of the opened folder create a new folder called .vscode and within
 the new .vscode folder create a tasks.json with the following content:
 
-```
+```json
 {
     "version": "2.0.0",
     "tasks": [
@@ -496,13 +523,13 @@ In case you did not already clone or download Frank!Runner and you have the git
 command available (otherwise download it manually or use another Git program to
 clone the project):
 
-```
+```sh
 projects> git clone https://github.com/ibissource/frank-runner
 ```
 
 Change directory to frank-runner:
 
-```
+```sh
 projects> cd frank-runner
 ```
 
